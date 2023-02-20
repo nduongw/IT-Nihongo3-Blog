@@ -10,9 +10,10 @@
   </head>
 
   <body>
-       <p class="notice"><%= notice %></p>
-       <p class="alert"><%= alert %></p>
-
+      <div class="text-success" style="color:green;">
+          <p class="notice text-success"><%= notice %></p>
+          <p class="alert" class="text-danger"><%= alert %></p>      
+      </div>
     <%= yield %>
   </body>
 </html>

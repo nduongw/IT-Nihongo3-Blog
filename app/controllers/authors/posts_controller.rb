@@ -37,7 +37,7 @@ class PostsController < AuthorsController
   # PATCH/PUT /posts/1
   def update
     if @post.update(post_params)
-      redirect_to @post, notice: 'Post was successfully updated.'
+      redirect_to edit_post_path(@post), notice: 'Post was successfully updated.'
     else
       render :edit
     end
@@ -46,7 +46,7 @@ class PostsController < AuthorsController
   # DELETE /posts/1
   def destroy
     @post.destroy
-    redirect_to posts_url, notice: 'Post was successfully destroyed.'
+    redirect_to "/posts", notice: 'Post was successfully destroyed.'
   end
 
   private
@@ -57,7 +57,7 @@ class PostsController < AuthorsController
 
     # Only allow a trusted parameter "white list" through.
     def post_params
-      params.require(:post).permit(:title, :description)
+      params.require(:post).permit(:title, :description, :header_image)
     end
 end
     

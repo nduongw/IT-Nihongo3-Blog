@@ -2,10 +2,23 @@
 <div class="row">
     <div class="col-md-3">
         <%= link_to 'Back', posts_path, class: 'btn btn-secondary mb-3' %>
-        <div clas="card">
+        <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Editing Blog</h4>
                 <%= render 'form', post: @post %>
+            </div>
+            <div class="card-footer">
+                <% if @post.published? %>
+                    <a href="#" class="btn btn-danger col-12"
+                    data-reflex="click->PublisherReflex#unpublish"
+                    data-post-id='<%= @post.id%>'
+                    >Unpublish</a>
+                <% else %>
+                    <a href="#" class="btn col-12 btn-success"
+                    data-reflex="click->PublisherReflex#publish"
+                    data-post-id='<%= @post.id%>'
+                    >Publish</a>
+                <% end%>
             </div>
         </div>
     </div>
@@ -26,6 +39,13 @@
         </div>
         <div class="card">
             <div class="card-body pt-5">
+                <%if @post.published? %>
+                    <span class="badge bg-primary mr-1">
+                        Published
+                    </span>
+                    <small><%= time_ago_in_words(@post.published_at)%> ago</small>
+
+                <%end%>
                         <% @post.elements.each do |element| %>
                             <% if element.persisted? %>
                                 <% if element.paragraph? %>
@@ -56,7 +76,9 @@
                                             <div>
                                             <%= image_tag(element.image) %>
                                             </div>
-                                            <%= link_to 'Delete Image', post_element_path(@post, element), method: :delete, class:'btn btn-danger',data:{ confirm: "Are you sure?"}%>
+                                            <div class="mt-1">
+                                                <%= link_to 'Delete Image', post_element_path(@post, element), method: :delete, class:'btn btn-danger',data:{ confirm: "Are you sure?"}%>
+                                            </div>
                                         <% else %>
                                             <%= form_with(model: [@post, element]) do |form| %>
                                                     <%= form.file_field :image %>
