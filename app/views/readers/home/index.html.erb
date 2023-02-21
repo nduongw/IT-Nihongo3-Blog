@@ -1,0 +1,32 @@
+
+<% @posts.each do |post| %>
+    <div class= "text-decoration-none">
+        <div class="card mb-3 post-card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="header-img" style="background-image : url(<%= url_for( post.header_image) %>);">
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <% if post.published?%>
+                                <span class="badge bg-primary mr-1">
+                                    Published
+                                </span>
+                            <% else %>
+                                <span class="badge bg-secondary mr-1">
+                                    Unpublished
+                                </span>
+                            <% end %>
+                        <div class="d-flex justify-content-between">
+                            <h5 class = 'card-title mb-1 text-dark'><%= post.title %></h5>
+                            <%= link_to 'Read this blog', blog_post_path(post), class:'btn btn-primary'%>
+                        </div>
+                        <p class = 'text-secondary '><%= post.description %></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<% end %>
